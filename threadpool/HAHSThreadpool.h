@@ -11,6 +11,16 @@
 #include <Mutex.h>
 #include <Condition.h>
 #include <list>
+#include <vector>
+
+const int DEFAULT_HAHSPTHREADPOOL_SIZE = 10;
+
+enum HAHSTHREADPOOLSTATUS
+{
+	STARTED = 0,
+	STOPPED = 1,
+};
+
 
 // 任务类
 class HAHSTask
@@ -43,9 +53,10 @@ public:
 private:
 	Mutex mTaskMutex;
 	Condition mTaskCondition;
-	std::list<pthread_t> mThreads;
+	std::vector<pthread_t> mThreads;
 	std::list<HAHSTask*> mTasks;
 	volatile int mPoolState;
+	int mPoolSize;
 };
 
 #endif /* HAHSTHREADPOOL_H_ */
